@@ -8,7 +8,7 @@ namespace Data
 {
     public class DProduct
     {
-        private string connectionString = "Data Source=LAB1504-10\\SQLEXPRESS;Initial Catalog=Tecsup;User ID=sa;Password=123456";
+        private string connectionString = "Data Source=LAPTOP-KUI6COAV\\SQLEXPRESS;Initial Catalog=Tecsup;User ID=dvaldez1;Password=terminator";
 
         public List<Product> Get()
         {
@@ -55,11 +55,28 @@ namespace Data
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
-     
                     command.Parameters.AddWithValue("@Name", product.Name);
                     command.Parameters.AddWithValue("@Price", product.Price);
                     command.Parameters.AddWithValue("@Stock", product.Stock);
                     command.Parameters.AddWithValue("@Active", product.Active);
+
+                    command.ExecuteNonQuery();
+                }
+
+                connection.Close();
+            }
+        }
+
+        public void Delete(int productId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand("EliminarProducto", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@ProductId", productId);
 
                     command.ExecuteNonQuery();
                 }

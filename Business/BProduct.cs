@@ -33,8 +33,12 @@ namespace Business
 
         public void CreateProduct(Product product)
         {
-
             data.Create(product);
+        }
+
+        public void DeleteProduct(int productId)
+        {
+            data.Delete(productId);
         }
     }
 }

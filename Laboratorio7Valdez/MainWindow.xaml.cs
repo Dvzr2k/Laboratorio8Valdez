@@ -27,16 +27,17 @@ namespace Laboratorio7Valdez
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             BProduct business = new BProduct();
-            string name = txtName.Text; 
+            string name = txtName.Text;
             var products = business.GetByName(name);
-            dataGrid.ItemsSource = products; 
+            dataGrid.ItemsSource = products;
         }
+
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
             BProduct business = new BProduct();
-            string name = txtName1.Text; 
-            decimal price = Convert.ToDecimal(txtPrice.Text); 
-            int stock = Convert.ToInt32(txtStock.Text); 
+            string name = txtName1.Text;
+            decimal price = Convert.ToDecimal(txtPrice.Text);
+            int stock = Convert.ToInt32(txtStock.Text);
 
             Product newProduct = new Product
             {
@@ -45,8 +46,19 @@ namespace Laboratorio7Valdez
                 Stock = stock
             };
 
-            business.CreateProduct(newProduct); 
+            business.CreateProduct(newProduct);
         }
 
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            BProduct business = new BProduct();
+            Button deleteButton = (Button)sender;
+            int productId = (int)deleteButton.Tag;
+            business.DeleteProduct(productId);
+            
+            string name = txtName.Text;
+            var products = business.GetByName(name);
+            dataGrid.ItemsSource = products;
+        }
     }
 }
